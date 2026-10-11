@@ -1,26 +1,101 @@
+"use client";
+
+import Image from "next/image";
+import { useState } from "react";
+
 const projects = Array.from({ length: 5 }, (_, index) => index + 1);
 
 export default function Home() {
+  const [darkMode, setDarkMode] = useState(false);
+  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+  const [focusedProject, setFocusedProject] = useState<number | null>(null);
+  const theme = darkMode
+    ? {
+        page: "bg-[#171815] text-[#f2f1eb]",
+        border: "border-white/15",
+        muted: "text-[#aaa99f]",
+        frame:
+          "border-white/10 bg-[#292a25] hover:bg-[#30312b]",
+        frameOutline:
+          "border-white/10 group-hover:border-white/20",
+      }
+    : {
+        page: "bg-[#f6f5f1] text-[#20221f]",
+        border: "border-[#20221f]/15",
+        muted: "text-[#77796f]",
+        frame:
+          "border-[#20221f]/10 bg-[#e9e8e1] hover:bg-[#e2e1d9]",
+        frameOutline:
+          "border-[#20221f]/10 group-hover:border-[#20221f]/20",
+      };
+
   return (
-    <main className="min-h-screen bg-[#f6f5f1] px-6 text-[#20221f] sm:px-10">
+    <main
+      className={`min-h-screen px-6 transition-colors duration-300 sm:px-10 ${theme.page}`}
+    >
       <div className="mx-auto max-w-6xl">
-        <header className="flex items-center justify-between border-b border-[#20221f]/15 py-6">
+        <header
+          className={`flex items-center justify-between border-b py-6 ${theme.border}`}
+        >
           <a href="#" className="text-sm font-semibold tracking-wide">
             YOUR NAME
           </a>
-          <nav aria-label="Main navigation" className="flex gap-6 text-sm">
-            <a className="transition-colors hover:text-[#77796f]" href="#projects">
-              Projects
-            </a>
-            <a className="transition-colors hover:text-[#77796f]" href="#about">
-              About
-            </a>
-          </nav>
+          <button
+            type="button"
+            role="switch"
+            aria-checked={darkMode}
+            aria-label="Dark mode"
+            onClick={() => setDarkMode((currentMode) => !currentMode)}
+            className={`relative h-8 w-14 rounded-full border transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-current ${
+              darkMode
+                ? "border-white/20 bg-[#77796f]"
+                : "border-[#20221f]/15 bg-[#e3e2da]"
+            }`}
+          >
+            <span
+              aria-hidden="true"
+              className={`absolute left-1 top-1 flex size-6 items-center justify-center rounded-full bg-white text-[#20221f] shadow-sm transition-transform duration-300 ${
+                darkMode ? "translate-x-6" : "translate-x-0"
+              }`}
+            >
+              {darkMode ? (
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  className="size-4"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M20.2 15.4A8.5 8.5 0 0 1 8.6 3.8 8.5 8.5 0 1 0 20.2 15.4Z"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  className="size-4"
+                >
+                  <circle cx="12" cy="12" r="4" />
+                  <path
+                    strokeLinecap="round"
+                    d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"
+                  />
+                </svg>
+              )}
+            </span>
+          </button>
         </header>
 
         <section className="grid gap-12 py-16 sm:py-24 md:grid-cols-[1.2fr_0.8fr] md:items-end">
           <div>
-            <p className="mb-5 text-xs font-medium uppercase tracking-[0.22em] text-[#77796f]">
+            <p
+              className={`mb-5 text-xs font-medium uppercase tracking-[0.22em] ${theme.muted}`}
+            >
               Portfolio · 2026
             </p>
             <h1 className="max-w-2xl text-5xl font-medium leading-[1.05] tracking-[-0.055em] sm:text-7xl">
@@ -28,10 +103,14 @@ export default function Home() {
             </h1>
           </div>
           <div id="about" className="max-w-sm md:justify-self-end">
-            <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-[#77796f]">
+            <p
+              className={`mb-3 text-xs font-medium uppercase tracking-[0.2em] ${theme.muted}`}
+            >
               About
             </p>
-            <p className="text-base leading-7 text-[#5e6059]">
+            <p
+              className={`text-base leading-7 ${darkMode ? "text-[#c4c3ba]" : "text-[#5e6059]"}`}
+            >
               A short introduction goes here. This is a placeholder for a little
               about me, what I enjoy creating, and what I’m curious to explore
               next.
@@ -41,34 +120,81 @@ export default function Home() {
 
         <section id="projects" aria-label="Project placeholders" className="pb-20">
           <div className="mb-5 flex items-center justify-between">
-            <h2 className="text-xs font-medium uppercase tracking-[0.2em] text-[#77796f]">
+            <h2
+              className={`text-xs font-medium uppercase tracking-[0.2em] ${theme.muted}`}
+            >
               Selected work
             </h2>
-            <span className="text-xs text-[#77796f]">05 frames</span>
+            <span className={`text-xs ${theme.muted}`}>05 frames</span>
           </div>
           <div className="flex flex-col gap-4">
-            {projects.map((project) => (
-              <div
-                key={project}
-                aria-label={`Project placeholder ${project}`}
-                className="group relative aspect-video overflow-hidden rounded-sm border border-[#20221f]/10 bg-[#e9e8e1] transition-colors duration-300 hover:bg-[#e2e1d9]"
-              >
-                <span className="absolute right-4 top-4 font-mono text-xs text-[#77796f]">
-                  0{project}
-                </span>
-                <span
-                  aria-hidden="true"
-                  className="absolute inset-4 border border-dashed border-[#20221f]/10 transition-colors group-hover:border-[#20221f]/20"
-                />
-                <span className="absolute inset-0 flex items-end bg-[#20221f]/75 p-6 text-sm leading-6 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  A short description of this project will go here.
-                </span>
-              </div>
-            ))}
+            {projects.map((project) => {
+              const isActive =
+                hoveredProject === project || focusedProject === project;
+
+              return (
+                <div
+                  key={project}
+                  tabIndex={0}
+                  aria-label={`Project placeholder ${project}`}
+                  onMouseEnter={() => setHoveredProject(project)}
+                  onMouseLeave={() => setHoveredProject(null)}
+                  onFocus={() => setFocusedProject(project)}
+                  onBlur={() => setFocusedProject(null)}
+                  className={`group relative aspect-video overflow-hidden rounded-sm border transition-colors duration-300 ${theme.frame}`}
+                >
+                  {project === 1 && (
+                    <Image
+                      src="/Placeholder1.png"
+                      alt="Preview image for project 01"
+                      fill
+                      sizes="(max-width: 1152px) 100vw, 1152px"
+                      className={`object-cover transition-transform duration-500 ease-out motion-reduce:transition-none motion-reduce:scale-100 ${
+                        isActive ? "scale-105" : "scale-100"
+                      }`}
+                    />
+                  )}
+                  <span
+                    aria-hidden="true"
+                    style={{ opacity: isActive ? 1 : 0 }}
+                    className="absolute inset-0 bg-black/40 transition-opacity duration-300 motion-reduce:transition-none"
+                  />
+                  <span
+                    className={`absolute right-4 top-4 font-mono text-xs ${theme.muted}`}
+                  >
+                    0{project}
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className={`absolute inset-4 border border-dashed transition-colors ${theme.frameOutline}`}
+                  />
+                  <div
+                    style={{ opacity: isActive ? 1 : 0 }}
+                    className={`absolute inset-y-0 right-0 z-10 flex w-1/2 flex-col justify-end bg-[#20221f]/90 p-4 text-white transition-[opacity,transform] duration-300 sm:w-2/5 sm:p-8 motion-reduce:transition-none ${
+                      isActive ? "translate-x-0" : "translate-x-4"
+                    }`}
+                  >
+                    <p className="mb-2 text-xs font-medium uppercase tracking-[0.2em] text-white/60">
+                      Project 0{project}
+                    </p>
+                    <h3 className="mb-3 text-lg font-medium leading-tight sm:text-2xl">
+                      Project title goes here
+                    </h3>
+                    <p className="text-xs leading-5 text-white/80 sm:text-sm sm:leading-6">
+                      A short description of this project will go here. Add
+                      more details about the goals, process, and outcome when
+                      the project is ready.
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </section>
 
-        <footer className="flex items-center justify-between border-t border-[#20221f]/15 py-5 text-xs text-[#77796f]">
+        <footer
+          className={`flex items-center justify-between border-t py-5 text-xs ${theme.border} ${theme.muted}`}
+        >
           <span>YOUR NAME</span>
           <span>Made with care · 2026</span>
         </footer>
