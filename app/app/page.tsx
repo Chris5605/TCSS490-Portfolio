@@ -231,7 +231,7 @@ export default function Home() {
         <footer
           className={`flex items-center justify-between border-t py-5 text-xs ${theme.border} ${theme.muted}`}
         >
-          <span>YOUR NAME</span>
+          <span>CHRISTOPHER PIHLMAN</span>
           <span>Made with care · 2026</span>
         </footer>
       </div>

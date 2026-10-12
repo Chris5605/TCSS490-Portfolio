@@ -25,3 +25,4 @@
 - 10:11 AM PDT — “It would appear that the .project-description rule is missing”
 - 10:25 AM PDT — “Awesome, that seems to have worked. I intend to have more text in each project description, so lets see what it looks like if the fade in effect and text were on the right side of the images”
 - 4:13 PM PDT — “I'm going to have to add in images and descriptions for all 5 placeholders, starting with Placeholder02.png, so can you include the image and a way for each image to have its own description?”
+- 9:02 PM PDT — “I need to export the project as a static page, what changes do I need to do to optimize the project for that?”
