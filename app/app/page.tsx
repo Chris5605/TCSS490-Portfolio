@@ -3,7 +3,43 @@
 import Image from "next/image";
 import { useState } from "react";
 
-const projects = Array.from({ length: 5 }, (_, index) => index + 1);
+const projects = [
+  {
+    number: 1,
+    image: "/Placeholder01.png",
+    title: "Portfolio Webpage",
+    description:
+      "A portfolio webpage showcasing my projects and ideas for the future. Check in later to see what I make!",
+  },
+  {
+    number: 2,
+    image: "/Placeholder02.png",
+    title: "VST Distortion Pedal",
+    description:
+      "I have never been fully happy with any of the virtual distortion effects I have used with my guitar, so I am going to try to create my own. With a full set of tone control knobs and a waveform display, I aim to achieve the perfect sound for my needs.",
+  },
+  {
+    number: 3,
+    image: "/Placeholder03.png",
+    title: "Outfit Color Helper",
+    description:
+      "As a colorblind person, finding outfit colors that match can sometimes be a struggle. With this tool, you will be able to input pieces you want to include in the outfit and get suggestions on what else could work, powered by AI.",
+  },
+  {
+    number: 4,
+    image: "/Placeholder04.png",
+    title: "Crossstitch Pattern Generator",
+    description:
+      "A tool that converts an image of the users choice into a readible, stitchable cross-stitch pattern, with a variable level of difficulty, detail, and colors.",
+  },
+  {
+    number: 5,
+    image: "/Placeholder05.png",
+    title: "Washington Transit Simulation",
+    description:
+      "Washington traffic sucks, but how can we resolve it? This simulation aims to model traffic patterns and test potential solutions to improve transit efficiency, including changes to highways, rail, and public transportation.",
+  },
+];
 
 export default function Home() {
   const [darkMode, setDarkMode] = useState(false);
@@ -38,7 +74,7 @@ export default function Home() {
           className={`flex items-center justify-between border-b py-6 ${theme.border}`}
         >
           <a href="#" className="text-sm font-semibold tracking-wide">
-            YOUR NAME
+            Christopher Pihlman
           </a>
           <button
             type="button"
@@ -99,7 +135,7 @@ export default function Home() {
               Portfolio · 2026
             </p>
             <h1 className="max-w-2xl text-5xl font-medium leading-[1.05] tracking-[-0.055em] sm:text-7xl">
-              A little space for the things I make.
+              Sometimes, starting is the hardest part.
             </h1>
           </div>
           <div id="about" className="max-w-sm md:justify-self-end">
@@ -111,9 +147,10 @@ export default function Home() {
             <p
               className={`text-base leading-7 ${darkMode ? "text-[#c4c3ba]" : "text-[#5e6059]"}`}
             >
-              A short introduction goes here. This is a placeholder for a little
-              about me, what I enjoy creating, and what I’m curious to explore
-              next.
+              Hi, I'm Chris, a software developer with an interest in creating tools that
+              change how we look at the world. In a time where every day has a new chaotic headline,
+              I strive to combine my passion for technology with my love for music and the arts to 
+              create projects that are both innovative and deeply human.
             </p>
           </div>
         </section>
@@ -130,23 +167,24 @@ export default function Home() {
           <div className="flex flex-col gap-4">
             {projects.map((project) => {
               const isActive =
-                hoveredProject === project || focusedProject === project;
+                hoveredProject === project.number ||
+                focusedProject === project.number;
 
               return (
                 <div
-                  key={project}
+                  key={project.number}
                   tabIndex={0}
-                  aria-label={`Project placeholder ${project}`}
-                  onMouseEnter={() => setHoveredProject(project)}
+                  aria-label={`Project placeholder ${project.number}`}
+                  onMouseEnter={() => setHoveredProject(project.number)}
                   onMouseLeave={() => setHoveredProject(null)}
-                  onFocus={() => setFocusedProject(project)}
+                  onFocus={() => setFocusedProject(project.number)}
                   onBlur={() => setFocusedProject(null)}
                   className={`group relative aspect-video overflow-hidden rounded-sm border transition-colors duration-300 ${theme.frame}`}
                 >
-                  {project === 1 && (
+                  {project.image && (
                     <Image
-                      src="/Placeholder1.png"
-                      alt="Preview image for project 01"
+                      src={project.image}
+                      alt={`Preview image for project ${project.number}`}
                       fill
                       sizes="(max-width: 1152px) 100vw, 1152px"
                       className={`object-cover transition-transform duration-500 ease-out motion-reduce:transition-none motion-reduce:scale-100 ${
@@ -162,7 +200,7 @@ export default function Home() {
                   <span
                     className={`absolute right-4 top-4 font-mono text-xs ${theme.muted}`}
                   >
-                    0{project}
+                    0{project.number}
                   </span>
                   <span
                     aria-hidden="true"
@@ -175,15 +213,13 @@ export default function Home() {
                     }`}
                   >
                     <p className="mb-2 text-xs font-medium uppercase tracking-[0.2em] text-white/60">
-                      Project 0{project}
+                      Project 0{project.number}
                     </p>
                     <h3 className="mb-3 text-lg font-medium leading-tight sm:text-2xl">
-                      Project title goes here
+                      {project.title}
                     </h3>
                     <p className="text-xs leading-5 text-white/80 sm:text-sm sm:leading-6">
-                      A short description of this project will go here. Add
-                      more details about the goals, process, and outcome when
-                      the project is ready.
+                      {project.description}
                     </p>
                   </div>
                 </div>
