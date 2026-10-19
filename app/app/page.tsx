@@ -1,26 +1,30 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 const projects = [
   {
     number: 1,
     image: "/Placeholder01.png",
+    website: "https://github.com/Chris5605/TCSS490-Portfolio",
     title: "Portfolio Webpage",
     description:
       "A portfolio webpage showcasing my projects and ideas for the future. Check in later to see what I make!",
   },
   {
     number: 2,
-    image: "/Placeholder02.png",
-    title: "VST Distortion Pedal",
+    image: "/BinarySunDistortion.png",
+    website: "https://github.com/Chris5605/Binary-Sun",
+    title: "Binary Sun - VST Distortion Pedal",
     description:
-      "I have never been fully happy with any of the virtual distortion effects I have used with my guitar, so I am going to try to create my own. With a full set of tone control knobs and a waveform display, I aim to achieve the perfect sound for my needs.",
+      "I had never been fully happy with any of the virtual distortion effects I have used with my guitar, so I created my own. It comes equipped with a set of two distortion engines, one handling high frequencies and the other handling low, and it allows you to combine them for a truly unique sound.",
   },
   {
     number: 3,
     image: "/Placeholder03.png",
+    website: null,
     title: "Outfit Color Helper",
     description:
       "As a colorblind person, finding outfit colors that match can sometimes be a struggle. With this tool, you will be able to input pieces you want to include in the outfit and get suggestions on what else could work, powered by AI.",
@@ -28,6 +32,7 @@ const projects = [
   {
     number: 4,
     image: "/Placeholder04.png",
+    website: null,
     title: "Crossstitch Pattern Generator",
     description:
       "A tool that converts an image of the users choice into a readible, stitchable cross-stitch pattern, with a variable level of difficulty, detail, and colors.",
@@ -35,6 +40,7 @@ const projects = [
   {
     number: 5,
     image: "/Placeholder05.png",
+    website: null,
     title: "Washington Transit Simulation",
     description:
       "Washington traffic sucks, but how can we resolve it? This simulation aims to model traffic patterns and test potential solutions to improve transit efficiency, including changes to highways, rail, and public transportation.",
@@ -171,10 +177,10 @@ export default function Home() {
                 focusedProject === project.number;
 
               return (
-                <div
+                <Link
                   key={project.number}
-                  tabIndex={0}
-                  aria-label={`Project placeholder ${project.number}`}
+                  href={project.website ?? "/"}
+                  aria-label={`Visit ${project.title}`}
                   onMouseEnter={() => setHoveredProject(project.number)}
                   onMouseLeave={() => setHoveredProject(null)}
                   onFocus={() => setFocusedProject(project.number)}
@@ -222,7 +228,7 @@ export default function Home() {
                       {project.description}
                     </p>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>
