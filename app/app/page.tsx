@@ -23,11 +23,11 @@ const projects = [
   },
   {
     number: 3,
-    image: "/Placeholder03.png",
-    website: null,
-    title: "Outfit Color Helper",
+    image: "/PalettePal.png",
+    website: "https://palette-pal-three.vercel.app/",
+    title: "PalettePal",
     description:
-      "As a colorblind person, finding outfit colors that match can sometimes be a struggle. With this tool, you will be able to input pieces you want to include in the outfit and get suggestions on what else could work, powered by AI.",
+      "As a colorblind person, finding outfit colors that match can sometimes be a struggle. With Palette Pal, you can use a photo, a color, or an item from your virtual closet to get suggested color suggestions to make your outfit pop.",
   },
   {
     number: 4,
